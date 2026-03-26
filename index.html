@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kcell NEXT — Тарифы нового поколения</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #FF2D3B;
+  --red2: #ff6b74;
+  --dark: #0a0908;
+  --dark2: #111010;
+  --dark3: #1a1917;
+  --card: #141312;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.13);
+  --text: #f0ede8;
+  --muted: #7a7672;
+  --muted2: #b0aca7;
+  --green: #29d98a;
+  --green2: #0a3d22;
+  --amber: #f5a623;
+  --blue: #3b9eff;
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--dark);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10,9,8,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.nav-badge {
+  background: var(--red);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 1px;
+  padding: 5px 12px;
+  border-radius: 6px;
+}
+.nav-sub {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+.nav-links a {
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--text); }
+
+.nav-cta {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+}
+.nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 40px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 70% 40%, rgba(255,45,59,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(41,217,138,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,45,59,0.12);
+  border: 1px solid rgba(255,45,59,0.3);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  width: fit-content;
+  animation: fadeDown 0.6s ease both;
+}
+.hero-tag-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 9vw, 120px);
+  line-height: 0.95;
+  letter-spacing: 1px;
+  margin-bottom: 28px;
+  max-width: 800px;
+  animation: fadeDown 0.6s 0.1s ease both;
+}
+.hero-title .accent { color: var(--red); }
+.hero-title .outline {
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
+  color: transparent;
+}
+
+.hero-sub {
+  font-size: 18px;
+  color: var(--muted2);
+  line-height: 1.65;
+  max-width: 520px;
+  margin-bottom: 44px;
+  font-weight: 300;
+  animation: fadeDown 0.6s 0.2s ease both;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  animation: fadeDown 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 16px 32px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, opacity 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 16px 32px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  animation: fadeDown 0.6s 0.4s ease both;
+}
+.hero-stat-val {
+  font-family: var(--font-display);
+  font-size: 42px;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.hero-stat-lbl {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── SCROLLING TICKER ─── */
+.ticker-wrap {
+  background: var(--red);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-inner {
+  display: inline-flex;
+  gap: 0;
+  animation: ticker 22s linear infinite;
+}
+.ticker-item {
+  font-family: var(--font-display);
+  font-size: 15px;
+  letter-spacing: 2px;
+  padding: 0 32px;
+  color: rgba(255,255,255,0.9);
+}
+.ticker-sep { opacity: 0.4; }
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── SECTION WRAPPER ─── */
+section {
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+section.full-bleed { max-width: none; padding-left: 0; padding-right: 0; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 64px);
+  line-height: 1.0;
+  letter-spacing: 0.5px;
+  margin-bottom: 16px;
+}
+.section-sub {
+  font-size: 16px;
+  color: var(--muted2);
+  line-height: 1.65;
+  max-width: 480px;
+  font-weight: 300;
+}
+
+/* ─── PROBLEM SECTION ─── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin-top: 60px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.prob-card {
+  background: var(--card);
+  padding: 36px 32px;
+  transition: background 0.25s;
+}
+.prob-card:hover { background: #1c1b19; }
+.prob-icon { font-size: 32px; margin-bottom: 16px; }
+.prob-title { font-family: var(--font-display); font-size: 22px; letter-spacing: 0.5px; margin-bottom: 10px; }
+.prob-text { font-size: 14px; color: var(--muted2); line-height: 1.65; font-weight: 300; }
+
+/* ─── INSIGHT ─── */
+.insight-wrap {
+  background: var(--dark3);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  margin-top: 0;
+}
+.insight-quote {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.15;
+  letter-spacing: 0.5px;
+  color: var(--text);
+}
+.insight-quote .hl { color: var(--red); }
+.insight-points { display: flex; flex-direction: column; gap: 20px; }
+.insight-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  background: var(--card);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  transition: border-color 0.2s;
+}
+.insight-point:hover { border-color: var(--border2); }
+.ipoint-icon {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(255,45,59,0.12);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.ipoint-title { font-weight: 600; font-size: 14px; margin-bottom: 3px; }
+.ipoint-text { font-size: 13px; color: var(--muted2); line-height: 1.5; }
+
+/* ─── TARIFFS ─── */
+.tariffs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.tariff-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.t-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px 28px;
+  position: relative;
+  transition: border-color 0.25s, transform 0.25s;
+  overflow: hidden;
+}
+.t-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: transparent;
+  transition: background 0.25s;
+}
+.t-card:hover { border-color: rgba(255,45,59,0.35); transform: translateY(-4px); }
+.t-card:hover::before { background: var(--red); }
+.t-card.featured {
+  border-color: rgba(255,45,59,0.4);
+  background: linear-gradient(160deg, #1e1210 0%, var(--card) 50%);
+}
+.t-card.featured::before { background: var(--red); }
+
+.t-popular {
+  position: absolute;
+  top: 20px; right: 20px;
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+}
+
+.t-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14px;
+  background: var(--dark3);
+}
+
+.t-card-name {
+  font-family: var(--font-display);
+  font-size: 28px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.t-card-target {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.t-card-price {
+  font-family: var(--font-display);
+  font-size: 42px;
+  color: var(--red);
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.t-card-period { font-size: 12px; color: var(--muted); margin-bottom: 28px; }
+
+.t-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 22px;
+}
+
+.t-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.t-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--muted2);
+}
+.t-feat-icon { font-size: 14px; width: 20px; text-align: center; }
+
+.t-card-btn {
+  width: 100%;
+  margin-top: 28px;
+  background: var(--dark3);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 10px;
+  padding: 13px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.t-card.featured .t-card-btn {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.t-card-btn:hover { background: rgba(255,45,59,0.15); border-color: rgba(255,45,59,0.4); }
+.t-card.featured .t-card-btn:hover { background: #d92231; }
+
+/* ─── FRIENDS CALCULATOR ─── */
+.calc-section {
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 100px 40px;
+}
+.calc-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.calc-left { position: sticky; top: 100px; }
+.calc-gb-display {
+  font-family: var(--font-display);
+  font-size: 120px;
+  line-height: 1;
+  color: var(--red);
+  transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  margin-bottom: 0;
+}
+.calc-gb-label {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--muted2);
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+.calc-desc {
+  font-size: 15px;
+  color: var(--muted2);
+  line-height: 1.65;
+  font-weight: 300;
+  max-width: 340px;
+}
+
+.calc-right { padding-top: 8px; }
+.calc-step-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--muted2);
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+/* FRIEND DOTS */
+.friend-dots-wrap {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.fdot {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+  user-select: none;
+}
+.fdot:hover { border-color: var(--border2); transform: scale(1.05); }
+.fdot.active {
+  background: rgba(255,45,59,0.15);
+  border-color: rgba(255,45,59,0.5);
+  transform: scale(1.08);
+}
+.fdot.me {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+/* PROGRESS BAR */
+.calc-progress-wrap {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+}
+.calc-prog-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted2);
+  margin-bottom: 10px;
+}
+.calc-prog-track {
+  height: 6px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.calc-prog-fill {
+  height: 100%;
+  background: var(--red);
+  border-radius: 3px;
+  transition: width 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.calc-bonus {
+  background: var(--green2);
+  border: 1px solid rgba(41,217,138,0.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  margin-top: 16px;
+}
+.calc-bonus:hover { border-color: rgba(41,217,138,0.4); }
+.calc-bonus.active { border-color: rgba(41,217,138,0.5); background: rgba(41,217,138,0.08); }
+.calc-bonus-icon { font-size: 22px; }
+.calc-bonus-text { flex: 1; }
+.calc-bonus-label { font-weight: 600; font-size: 14px; color: var(--green); margin-bottom: 2px; }
+.calc-bonus-sub { font-size: 12px; color: rgba(41,217,138,0.7); }
+.calc-bonus-val {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--green);
+  letter-spacing: 0.5px;
+}
+
+.calc-total {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.calc-total-label { font-size: 14px; color: var(--muted2); }
+.calc-total-val {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: var(--text);
+}
+
+/* ─── HOW IT WORKS ─── */
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-top: 56px;
+  background: var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.how-step {
+  background: var(--card);
+  padding: 36px 28px;
+  position: relative;
+  transition: background 0.2s;
+}
+.how-step:hover { background: #1c1b19; }
+.how-num {
+  font-family: var(--font-display);
+  font-size: 56px;
+  color: rgba(255,45,59,0.15);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.how-title { font-weight: 600; font-size: 16px; margin-bottom: 10px; }
+.how-text { font-size: 13px; color: var(--muted2); line-height: 1.6; font-weight: 300; }
+
+/* ─── METRICS ─── */
+.metrics-bg {
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.metrics-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 40px;
+}
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 56px;
+}
+.metric-card {
+  background: var(--card);
+  padding: 40px 32px;
+  transition: background 0.2s;
+}
+.metric-card:hover { background: #1c1b19; }
+.metric-val {
+  font-family: var(--font-display);
+  font-size: 52px;
+  color: var(--red);
+  line-height: 1;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+.metric-lbl {
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.5;
+  font-weight: 300;
+}
+
+/* ─── ROADMAP ─── */
+.roadmap-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 56px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.roadmap-row {
+  display: grid;
+  grid-template-columns: 160px 1fr auto;
+  gap: 24px;
+  align-items: center;
+  padding: 28px 32px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+  transition: background 0.2s;
+}
+.roadmap-row:last-child { border-bottom: none; }
+.roadmap-row:hover { background: #1c1b19; }
+.rm-phase {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.rm-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+.rm-text { font-size: 13px; color: var(--muted2); font-weight: 300; }
+.rm-badge {
+  background: rgba(255,45,59,0.12);
+  border: 1px solid rgba(255,45,59,0.25);
+  color: var(--red2);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.rm-badge.green {
+  background: rgba(41,217,138,0.1);
+  border-color: rgba(41,217,138,0.25);
+  color: var(--green);
+}
+
+/* ─── CTA SECTION ─── */
+.cta-section {
+  background: var(--red);
+  padding: 100px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 80% at 50% 50%, rgba(255,255,255,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+.cta-big {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 0.95;
+  color: #fff;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+.cta-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.65;
+  font-weight: 300;
+  margin-bottom: 44px;
+}
+.cta-form {
+  display: flex;
+  gap: 10px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+.cta-input {
+  flex: 1;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cta-input::placeholder { color: rgba(255,255,255,0.5); }
+.cta-input:focus { border-color: rgba(255,255,255,0.6); background: rgba(255,255,255,0.2); }
+.cta-submit {
+  background: #fff;
+  color: var(--red);
+  border: none;
+  border-radius: 10px;
+  padding: 14px 24px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.15s;
+  white-space: nowrap;
+}
+.cta-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--dark2);
+  border-top: 1px solid var(--border);
+  padding: 48px 40px 32px;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 32px;
+}
+.footer-brand { max-width: 260px; }
+.footer-brand p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-top: 12px;
+  font-weight: 300;
+}
+.footer-col h4 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 14px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: var(--text); }
+.footer-bottom {
+  max-width: 1200px;
+  margin: 40px auto 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ─── SCROLL ANIMATIONS ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-stats { gap: 28px; flex-wrap: wrap; }
+  section { padding: 70px 20px; }
+  .problem-grid { grid-template-columns: 1fr; }
+  .insight-wrap { grid-template-columns: 1fr; padding: 36px; gap: 36px; }
+  .tariff-grid { grid-template-columns: 1fr; }
+  .calc-inner { grid-template-columns: 1fr; gap: 40px; }
+  .calc-left { position: static; }
+  .calc-gb-display { font-size: 80px; }
+  .how-grid { grid-template-columns: 1fr 1fr; }
+  .metrics-grid { grid-template-columns: 1fr 1fr; }
+  .roadmap-row { grid-template-columns: 1fr; gap: 8px; }
+  .cta-form { flex-direction: column; }
+  .footer-inner { flex-direction: column; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+  .calc-section { padding: 70px 20px; }
+  .metrics-inner { padding: 70px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <span class="nav-badge">KCELL NEXT</span>
+    <span class="nav-sub">new generation</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#tariffs">Тарифы</a></li>
+    <li><a href="#calculator">Калькулятор</a></li>
+    <li><a href="#metrics">Метрики</a></li>
+    <li><a href="#connect">Подключиться</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('connect').scrollIntoView({behavior:'smooth'})">Подключиться</button>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+
+  <div class="hero-tag">
+    <div class="hero-tag-dot"></div>
+    Новое тарифное предложение 2025
+  </div>
+
+  <h1 class="hero-title">
+    СВЯЗЬ,<br>
+    КОТОРАЯ <span class="accent">РАСТЁТ</span><br>
+    <span class="outline">С ТОБОЙ</span>
+  </h1>
+
+  <p class="hero-sub">Kcell NEXT — первая тарифная линейка, где гигабайты увеличиваются вместе с твоей группой. Больше друзей — больше интернета у каждого.</p>
+
+  <div class="hero-btns">
+    <a href="#tariffs" class="btn-primary">Смотреть тарифы</a>
+    <a href="#calculator" class="btn-outline">Рассчитать выгоду →</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-val">3–5×</div>
+      <div class="hero-stat-lbl">больше клиентов с одного абонента</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">↓40%</div>
+      <div class="hero-stat-lbl">снижение стоимости привлечения</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">220M₸</div>
+      <div class="hero-stat-lbl">прогноз дохода / месяц</div>
+    </div>
+    <div>
+      <div class="hero-stat-val">35 ГБ</div>
+      <div class="hero-stat-lbl">максимум в группе из 7 человек</div>
+    </div>
+  </div>
+</div>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-inner" id="tickerInner">
+    <span class="ticker-item">SAFE KIDS — 4 490 ₸</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">FRIENDS — 5 490 ₸</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">STUDENT PRO — 6 490 ₸</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">ГРУППОВОЙ РОСТ ГБ</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">+3–7 ГБ ЗА ПЕРЕХОД</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">БЕЗЛИМИТ СОЦСЕТЕЙ</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">SAFE KIDS — 4 490 ₸</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">FRIENDS — 5 490 ₸</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">STUDENT PRO — 6 490 ₸</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">ГРУППОВОЙ РОСТ ГБ</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">+3–7 ГБ ЗА ПЕРЕХОД</span>
+    <span class="ticker-item ticker-sep">✦</span>
+    <span class="ticker-item">БЕЗЛИМИТ СОЦСЕТЕЙ</span>
+    <span class="ticker-item ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section>
+  <div class="section-label reveal">Проблема</div>
+  <h2 class="section-title reveal reveal-delay-1">Рынок в<br>стагнации</h2>
+  <p class="section-sub reveal reveal-delay-2">Операторы предлагают одинаковые тарифы. Выбор клиента случаен. Мы решили это изменить.</p>
+
+  <div class="problem-grid reveal reveal-delay-3">
+    <div class="prob-card">
+      <div class="prob-icon">⚖️</div>
+      <div class="prob-title">Ценовая война</div>
+      <div class="prob-text">Конкуренция строится только на цене и гигабайтах. Операторы снижают маржу без роста базы.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">📉</div>
+      <div class="prob-title">Высокий CAC</div>
+      <div class="prob-text">Стоимость привлечения клиента растёт. Традиционная реклама перестаёт работать для молодёжи.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">🔄</div>
+      <div class="prob-title">Высокий churn</div>
+      <div class="prob-text">Клиенты легко уходят к конкурентам — ничего не удерживает их на тарифе.</div>
+    </div>
+    <div class="prob-card">
+      <div class="prob-icon">👤</div>
+      <div class="prob-title">Индивидуальная модель</div>
+      <div class="prob-text">Молодёжь принимает решения в группах — но тарифы созданы для индивидуального пользователя.</div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHT -->
+<section style="padding-top:0">
+  <div class="insight-wrap reveal">
+    <div>
+      <div class="section-label" style="margin-bottom:20px">Ключевой инсайт</div>
+      <div class="insight-quote">Молодёжь выбирает не тариф — она выбирает <span class="hl">окружение.</span></div>
+    </div>
+    <div class="insight-points">
+      <div class="insight-point">
+        <div class="ipoint-icon">👥</div>
+        <div>
+          <div class="ipoint-title">Групповые решения</div>
+          <div class="ipoint-text">Молодёжь координируется в мессенджерах перед покупкой любой услуги</div>
+        </div>
+      </div>
+      <div class="insight-point">
+        <div class="ipoint-icon">🗣️</div>
+        <div>
+          <div class="ipoint-title">Органическое распространение</div>
+          <div class="ipoint-text">Рекомендации друзей — главный канал влияния на выбор оператора</div>
+        </div>
+      </div>
+      <div class="insight-point">
+        <div class="ipoint-icon">🔗</div>
+        <div>
+          <div class="ipoint-title">Эффект удержания</div>
+          <div class="ipoint-text">Если уйдёт один — условия ухудшатся для всей группы. Это механика, а не обещание.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFFS -->
+<section id="tariffs">
+  <div class="tariffs-header">
+    <div>
+      <div class="section-label reveal">Тарифы</div>
+      <h2 class="section-title reveal reveal-delay-1">Три тарифа.<br>Один принцип.</h2>
+    </div>
+    <p class="section-sub reveal reveal-delay-2" style="font-size:14px">Все тарифы в рамках рынка — никакого демпинга. Рост через количество, а не снижение цены.</p>
+  </div>
+
+  <div class="tariff-grid">
+    <div class="t-card reveal">
+      <div class="t-icon">🧒</div>
+      <div class="t-card-name">SAFE KIDS</div>
+      <div class="t-card-target">Для семьи</div>
+      <div class="t-card-price">4 490</div>
+      <div class="t-card-period">₸ в месяц</div>
+      <div class="t-divider"></div>
+      <ul class="t-features">
+        <li class="t-feature"><span class="t-feat-icon">📶</span>15 ГБ интернет</li>
+        <li class="t-feature"><span class="t-feat-icon">♾️</span>Безлимит соцсетей</li>
+        <li class="t-feature"><span class="t-feat-icon">🛡️</span>Родительский контроль</li>
+        <li class="t-feature"><span class="t-feat-icon">📞</span>300 минут звонков</li>
+        <li class="t-feature"><span class="t-feat-icon">📍</span>Геолокация для родителей</li>
+      </ul>
+      <button class="t-card-btn" onclick="document.getElementById('connect').scrollIntoView({behavior:'smooth'})">Подключить →</button>
+    </div>
+
+    <div class="t-card featured reveal reveal-delay-1">
+      <div class="t-popular">Популярный</div>
+      <div class="t-icon">👥</div>
+      <div class="t-card-name">FRIENDS</div>
+      <div class="t-card-target">Для компании</div>
+      <div class="t-card-price">5 490</div>
+      <div class="t-card-period">₸ в месяц</div>
+      <div class="t-divider"></div>
+      <ul class="t-features">
+        <li class="t-feature"><span class="t-feat-icon">📶</span>20–35 ГБ (растёт с группой)</li>
+        <li class="t-feature"><span class="t-feat-icon">♾️</span>Безлимит соцсетей</li>
+        <li class="t-feature"><span class="t-feat-icon">🎁</span>+3–7 ГБ при переходе с MNP</li>
+        <li class="t-feature"><span class="t-feat-icon">📞</span>500 минут звонков</li>
+        <li class="t-feature"><span class="t-feat-icon">👑</span>Группа до 7 человек</li>
+      </ul>
+      <button class="t-card-btn" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">Рассчитать выгоду →</button>
+    </div>
+
+    <div class="t-card reveal reveal-delay-2">
+      <div class="t-icon">🎓</div>
+      <div class="t-card-name">STUDENT PRO</div>
+      <div class="t-card-target">Для студентов</div>
+      <div class="t-card-price">6 490</div>
+      <div class="t-card-period">₸ в месяц</div>
+      <div class="t-divider"></div>
+      <ul class="t-features">
+        <li class="t-feature"><span class="t-feat-icon">📶</span>25 ГБ интернет</li>
+        <li class="t-feature"><span class="t-feat-icon">▶️</span>YouTube + TikTok безлимит</li>
+        <li class="t-feature"><span class="t-feat-icon">🌙</span>Ночной безлимит 00:00–08:00</li>
+        <li class="t-feature"><span class="t-feat-icon">📞</span>700 минут звонков</li>
+        <li class="t-feature"><span class="t-feat-icon">🎓</span>Скидка на образование</li>
+      </ul>
+      <button class="t-card-btn" onclick="document.getElementById('connect').scrollIntoView({behavior:'smooth'})">Подключить →</button>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<div class="calc-section" id="calculator">
+  <div class="calc-inner">
+    <div class="calc-left">
+      <div class="section-label reveal">Тариф FRIENDS</div>
+      <div class="calc-gb-display" id="calcGb">20</div>
+      <div class="calc-gb-label">ГИГАБАЙТ</div>
+      <p class="calc-desc" id="calcDescLeft">Базовый тариф для одного участника. Добавь друзей и смотри, как растут гигабайты у каждого.</p>
+    </div>
+
+    <div class="calc-right">
+      <div class="calc-step-title">Выбери участников группы</div>
+
+      <div class="friend-dots-wrap" id="friendDots">
+        <div class="fdot me" data-idx="0" title="Это ты">😊</div>
+        <div class="fdot" data-idx="1">😎</div>
+        <div class="fdot" data-idx="2">🤩</div>
+        <div class="fdot" data-idx="3">🔥</div>
+        <div class="fdot" data-idx="4">👑</div>
+        <div class="fdot" data-idx="5">🚀</div>
+        <div class="fdot" data-idx="6">💫</div>
+      </div>
+
+      <div class="calc-progress-wrap">
+        <div class="calc-prog-label">
+          <span id="progLabel">1 участник</span>
+          <span id="progGb" style="color:var(--red);font-weight:600">20 ГБ</span>
+        </div>
+        <div class="calc-prog-track">
+          <div class="calc-prog-fill" id="progFill" style="width:33%"></div>
+        </div>
+      </div>
+
+      <div class="calc-progress-wrap" style="margin-top:0">
+        <div class="calc-prog-label">
+          <span>Рост группы</span>
+          <span style="font-size:12px;color:var(--muted)">3 чел → 25 · 5 чел → 30 · 7 чел → 35 ГБ</span>
+        </div>
+        <div style="display:flex;gap:6px;margin-top:4px">
+          <div style="flex:1;text-align:center;background:rgba(255,45,59,0.08);border-radius:8px;padding:8px 4px;border:1px solid rgba(255,45,59,0.15)">
+            <div style="font-family:var(--font-display);font-size:18px;color:var(--red)">25</div>
+            <div style="font-size:10px;color:var(--muted)">ГБ · 3 чел</div>
+          </div>
+          <div style="flex:1;text-align:center;background:rgba(255,45,59,0.08);border-radius:8px;padding:8px 4px;border:1px solid rgba(255,45,59,0.15)">
+            <div style="font-family:var(--font-display);font-size:18px;color:var(--red)">30</div>
+            <div style="font-size:10px;color:var(--muted)">ГБ · 5 чел</div>
+          </div>
+          <div style="flex:1;text-align:center;background:rgba(255,45,59,0.08);border-radius:8px;padding:8px 4px;border:1px solid rgba(255,45,59,0.15)">
+            <div style="font-family:var(--font-display);font-size:18px;color:var(--red)">35</div>
+            <div style="font-size:10px;color:var(--muted)">ГБ · 7 чел</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-bonus" id="calcBonus" onclick="toggleBonus()">
+        <div class="calc-bonus-icon">🔄</div>
+        <div class="calc-bonus-text">
+          <div class="calc-bonus-label">Переход от другого оператора</div>
+          <div class="calc-bonus-sub">Нажми, чтобы включить Switch Bonus</div>
+        </div>
+        <div class="calc-bonus-val" id="bonusVal">+0 ГБ</div>
+      </div>
+
+      <div class="calc-total">
+        <div class="calc-total-label">Итого гигабайт каждому</div>
+        <div class="calc-total-val" id="calcTotal">20 ГБ</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section>
+  <div class="section-label reveal">Механика</div>
+  <h2 class="section-title reveal reveal-delay-1">Как это работает</h2>
+  <div class="how-grid reveal reveal-delay-2">
+    <div class="how-step">
+      <div class="how-num">01</div>
+      <div class="how-title">Один подключается</div>
+      <div class="how-text">Клиент выбирает тариф FRIENDS и создаёт группу в приложении Kcell</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">02</div>
+      <div class="how-title">Зовёт друзей</div>
+      <div class="how-text">Отправляет ссылку-инвайт. Каждый новый участник увеличивает ГБ для всех</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">03</div>
+      <div class="how-title">Все получают больше</div>
+      <div class="how-text">Группа из 7 человек — каждый получает 35 ГБ вместо базовых 20 ГБ</div>
+    </div>
+    <div class="how-step">
+      <div class="how-num">04</div>
+      <div class="how-title">Никто не уходит</div>
+      <div class="how-text">Уход одного снижает ГБ для всей группы. Эффект удержания встроен в продукт</div>
+    </div>
+  </div>
+</section>
+
+<!-- METRICS -->
+<div class="metrics-bg">
+  <div class="metrics-inner" id="metrics">
+    <div class="section-label reveal">Экономика</div>
+    <h2 class="section-title reveal reveal-delay-1">Финансовый эффект</h2>
+    <p class="section-sub reveal reveal-delay-2">Консервативный сценарий при 40 000 новых абонентов и ARPU 5 500 ₸</p>
+    <div class="metrics-grid reveal reveal-delay-3">
+      <div class="metric-card">
+        <div class="metric-val">220M₸</div>
+        <div class="metric-lbl">Ежемесячный дополнительный доход</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">↓40%</div>
+        <div class="metric-lbl">Снижение стоимости привлечения (CAC)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">↓20%</div>
+        <div class="metric-lbl">Снижение оттока абонентов (churn)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-val">6–8мес</div>
+        <div class="metric-lbl">Срок окупаемости проекта</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROADMAP -->
+<section>
+  <div class="section-label reveal">Реализация</div>
+  <h2 class="section-title reveal reveal-delay-1">Дорожная карта</h2>
+  <p class="section-sub reveal reveal-delay-2">Никакой новой инфраструктуры. Биллинг, MNP и приложение — всё уже есть.</p>
+
+  <div class="roadmap-wrap reveal reveal-delay-3">
+    <div class="roadmap-row">
+      <div class="rm-phase">Сейчас</div>
+      <div>
+        <div class="rm-title">Анализ и проектирование</div>
+        <div class="rm-text">Финальное ТЗ, согласование биллинга, UX-прототипы</div>
+      </div>
+      <div class="rm-badge green">Готово</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="rm-phase">1–2 месяца</div>
+      <div>
+        <div class="rm-title">MVP запуск</div>
+        <div class="rm-text">Групповой функционал в приложении, тариф FRIENDS, Switch Bonus</div>
+      </div>
+      <div class="rm-badge">В работе</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="rm-phase">2–4 месяца</div>
+      <div>
+        <div class="rm-title">Полная линейка</div>
+        <div class="rm-text">SAFE KIDS и STUDENT PRO, реферальная механика, аналитика</div>
+      </div>
+      <div class="rm-badge">Плановый</div>
+    </div>
+    <div class="roadmap-row">
+      <div class="rm-phase">4–6 месяцев</div>
+      <div>
+        <div class="rm-title">Масштабирование</div>
+        <div class="rm-text">Таргетинг, партнёрства с вузами, расширение на регионы</div>
+      </div>
+      <div class="rm-badge">Плановый</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section" id="connect">
+  <div class="cta-inner">
+    <div class="cta-big">ГОТОВ<br>РАСТИ?</div>
+    <p class="cta-sub">Оставь номер — и мы свяжемся с тобой для подключения к Kcell NEXT первым.</p>
+    <div class="cta-form">
+      <input type="tel" class="cta-input" id="phoneInput" placeholder="+7 (___) ___ __ __" maxlength="18" oninput="formatPhone(this)">
+      <button class="cta-submit" onclick="submitPhone()">Подключить</button>
+    </div>
+    <p id="cta-thanks" style="display:none;margin-top:20px;font-size:15px;color:rgba(255,255,255,0.9);font-weight:500">Отлично! Мы перезвоним тебе в ближайшее время. 🎉</p>
+    <div style="margin-top:32px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap">
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:center;gap:6px">
+        <span>✓</span> Без лишних документов
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:center;gap:6px">
+        <span>✓</span> Активация за 5 минут
+      </div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.65);display:flex;align-items:center;gap:6px">
+        <span>✓</span> Перенос номера (MNP)
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <span class="nav-badge">KCELL NEXT</span>
+      </div>
+      <p>Тарифы нового поколения для молодёжи Казахстана. Больше людей — больше гигабайт у каждого.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Тарифы</h4>
+      <ul>
+        <li><a href="#tariffs">SAFE KIDS</a></li>
+        <li><a href="#tariffs">FRIENDS</a></li>
+        <li><a href="#tariffs">STUDENT PRO</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Компания</h4>
+      <ul>
+        <li><a href="#">О проекте</a></li>
+        <li><a href="#metrics">Метрики</a></li>
+        <li><a href="#">Пресс-центр</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Поддержка</h4>
+      <ul>
+        <li><a href="#">*500</a></li>
+        <li><a href="#">Приложение Kcell</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Kcell. Все права защищены.</span>
+    <span>Казахстан · Астана · Алматы</span>
+  </div>
+</footer>
+
+<script>
+// ─── SCROLL REVEAL ───
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => io.observe(el));
+
+// ─── FRIENDS CALCULATOR ───
+const gbMap = [20, 20, 20, 25, 25, 30, 30, 35];
+let groupSize = 1;
+let bonusActive = false;
+
+const dots = document.querySelectorAll('.fdot');
+dots.forEach((dot, i) => {
+  if (i === 0) return;
+  dot.addEventListener('click', () => {
+    const isActive = dot.classList.contains('active');
+    if (isActive) {
+      // deactivate this and all after
+      let newSize = i;
+      for (let j = i; j < dots.length; j++) dots[j].classList.remove('active');
+      groupSize = newSize;
+    } else {
+      // activate up to this dot
+      for (let j = 1; j <= i; j++) dots[j].classList.add('active');
+      groupSize = i + 1;
+    }
+    updateCalc();
+  });
+});
+
+function updateCalc() {
+  const gb = gbMap[groupSize - 1] || 20;
+  const bonus = bonusActive ? (groupSize >= 5 ? 7 : groupSize >= 3 ? 5 : 3) : 0;
+  const total = gb + bonus;
+
+  document.getElementById('calcGb').textContent = gb;
+  document.getElementById('progLabel').textContent = groupSize + (groupSize === 1 ? ' участник' : groupSize < 5 ? ' участника' : ' участников');
+  document.getElementById('progGb').textContent = gb + ' ГБ';
+  document.getElementById('progFill').style.width = Math.round((gb - 20) / 15 * 100 + 33) + '%';
+  document.getElementById('calcTotal').textContent = total + ' ГБ';
+  document.getElementById('bonusVal').textContent = bonus > 0 ? '+' + bonus + ' ГБ' : '+0 ГБ';
+
+  const descs = {
+    1: 'Базовый тариф для одного участника. Добавь друзей и смотри, как растут гигабайты у каждого.',
+    3: 'Группа из 3 человек — каждый получает 25 ГБ. На 5 ГБ больше, чем в одиночку.',
+    5: 'Группа из 5 человек — 30 ГБ каждому. Уже на 50% больше базового тарифа!',
+    7: 'Максимальная группа! 7 участников = 35 ГБ каждому. Это предел роста по тарифу FRIENDS.'
+  };
+  const key = groupSize >= 7 ? 7 : groupSize >= 5 ? 5 : groupSize >= 3 ? 3 : 1;
+  document.getElementById('calcDescLeft').textContent = descs[key];
+}
+
+function toggleBonus() {
+  bonusActive = !bonusActive;
+  document.getElementById('calcBonus').classList.toggle('active', bonusActive);
+  updateCalc();
+}
+
+// ─── PHONE FORMAT ───
+function formatPhone(input) {
+  let v = input.value.replace(/\D/g, '');
+  if (v.startsWith('7')) v = v.substring(1);
+  if (v.startsWith('8')) v = v.substring(1);
+  let formatted = '+7';
+  if (v.length > 0) formatted += ' (' + v.substring(0,3);
+  if (v.length >= 3) formatted += ') ' + v.substring(3,6);
+  if (v.length >= 6) formatted += ' ' + v.substring(6,8);
+  if (v.length >= 8) formatted += ' ' + v.substring(8,10);
+  input.value = formatted;
+}
+
+function submitPhone() {
+  const val = document.getElementById('phoneInput').value;
+  if (val.replace(/\D/g,'').length < 10) {
+    document.getElementById('phoneInput').style.borderColor = 'rgba(255,255,255,0.8)';
+    setTimeout(() => document.getElementById('phoneInput').style.borderColor = '', 1000);
+    return;
+  }
+  document.getElementById('phoneInput').style.display = 'none';
+  document.querySelector('.cta-submit').style.display = 'none';
+  document.getElementById('cta-thanks').style.display = 'block';
+}
+
+// ─── SMOOTH NAV ───
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+</script>
+</body>
+</html>
